@@ -20,6 +20,7 @@ def random(bits:int =16) -> int:
 	circuit = QuantumCircuit(q, c)
 	circuit.h(q)
 	circuit.measure(q, c)
+	print(circuit)
 	
 	backend = provider.get_backend('ibmq_qasm_simulator')
 	job = execute(circuit, backend, shots=1)
@@ -37,13 +38,16 @@ def random_in(a:int, b:int) -> int:
 	b -- right closed interval
 	"""
 	binary = '{0:08b}'.format(b-a)
+	binary = remove_leading_zeros(binary)
+	if binary == '0': return a
 	max_bits = len(binary)
 
 	q = QuantumRegister(max_bits, 'q')
 	c = ClassicalRegister(max_bits, 'c')
-	ciruit = QuantumCircuit(q, c)
+	circuit = QuantumCircuit(q, c)
 	circuit.h(q)
-	circuit.measure(q, c) 
+	circuit.measure(q, c)
+	print(circuit)
 
 	backend = provider.get_backend('ibmq_qasm_simulator')
 	job = execute(circuit, backend, shots=1)
@@ -52,5 +56,12 @@ def random_in(a:int, b:int) -> int:
 	counts = job.result().get_counts()
 
 	result = format(counts)
+	if result > b: result = b-a
 
 	return result + a
+
+def remove_leading_zeros(binary:str) -> str:
+        for _ in range(len(binary)):
+                if binary[_] != '0':
+                        return binary[_:]
+        return '0'
