@@ -9,17 +9,17 @@ ___
 Based on the amount of bits provided, a random number is generated based on a circuit of a quantum and classical register. Then an HGate is applied to the circuit and measured. Then, in one shot, the circuit pings each qubit and returns a value of `0` or `1`, and then a binary string is strung for each qubit. Then the number is converted into decimal, and the result is provided. 
 
 Circuit and result for a 16-bit random number:
-![](16bit.png)
+![](img/16bit.png)
 
 <br>
 
 Circuit and result for a 4-bit random number:
-![](4bit.png)
+![](img/4bit.png)
 
 <br>
 
 Circuit and result for a 4-bit random number in range [0,10] (bits selected automatically):
-![](in.png)
+![](img/in.png)
 
 <br>
 ___
